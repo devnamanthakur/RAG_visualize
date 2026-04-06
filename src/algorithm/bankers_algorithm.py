@@ -46,16 +46,14 @@ def banker_algorithm(res_requirement,resources,allocated_matrix,res_table):
     available_res=calc_remaining_resource(resources,allocated_matrix)
     finish=[False]*5 #to check if the process is executed or not 
     safe_sequence=[]
-    for j in range(5):
+    for j in range(len(process)):
         for i in range(5):
             if (finish[i]==False):
-                if(available_res[i]>=res_requirement[i]):
+                if(available_res>=res_requirement[i]).all():
                     finish[i]=True
+                    available_res+=allocated_matrix[i]
                     safe_sequence.append(process[i])
-    if all(finish):
-        return safe_sequence
-    else:
-        return "It is an deadlock"
+    return safe_sequence if all(finish) else None
 
 
 
